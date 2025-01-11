@@ -167,13 +167,4 @@ def upload_media(media_path: Union[str, Path]) -> str:
 # Example usage
 if __name__ == "__main__":
 
-    # recipient_number = "573168227670"
-    # template_name = "sample_movie_ticket_confirmation"
-    # language_code = "en_US"
-    # response = send_whatsapp_message_sync(recipient_number, template_name, language_code)
-    # print(json.dumps(response, indent=4))
-    test_path = Path("/mnt/c/Users/Lenovo/Downloads/141153441343.pdf")
-    print(f"Path exists: {test_path.exists()}")
-    media_id = upload_media(test_path)
-    print(media_id)
-    print ("Probango Git")
+    print ("Estoy probando la rama de Git 'dev'")
