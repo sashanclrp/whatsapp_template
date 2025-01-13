@@ -13,7 +13,9 @@ class Watcher:
         self.process = None
 
     def kill_existing_process(self):
-        # Check and kill any existing process using port 5000
+        """
+        Kill any process currently running on port 5000.
+        """
         try:
             result = subprocess.run(
                 ["lsof", "-t", "-i:5000"],
@@ -30,6 +32,9 @@ class Watcher:
             print(f"Error killing process on port 5000: {e}")
 
     def run_server(self):
+        """
+        Start or restart the FastAPI server pointing to `src/main.py`.
+        """
         # Properly terminate the existing process
         if self.process:
             print("Terminating existing server process...")
@@ -43,24 +48,39 @@ class Watcher:
         # Ensure the port is free before starting a new process
         self.kill_existing_process()
 
-        # Start a new server process
-        print("Starting server process...")
-        self.process = subprocess.Popen([sys.executable, "server.py"])
+        # Update the server path to point to main.py
+        server_path = "src/main.py"
+        if not os.path.exists(server_path):
+            print(f"Error: {server_path} does not exist. Please check the path.")
+            return
+
+        print(f"Starting server process with {server_path}...")
+        self.process = subprocess.Popen(
+            [sys.executable, server_path],
+            stdout=sys.stdout,
+            stderr=sys.stderr,
+        )
 
     class Handler(FileSystemEventHandler):
         def __init__(self, watcher):
             self.watcher = watcher
 
         def on_modified(self, event):
+            """
+            Restart the server if a Python file is modified.
+            """
             if event.src_path.endswith('.py'):
                 print(f'File {event.src_path} has been modified')
                 self.watcher.run_server()
 
     def start(self):
+        """
+        Start the file watcher and initial server process.
+        """
         event_handler = self.Handler(self)
-        self.observer.schedule(event_handler, '.', recursive=True)
+        self.observer.schedule(event_handler, 'src/', recursive=True)
         self.observer.start()
-        self.run_server()  # Initial run
+        self.run_server()  # Initial server startup
         
         try:
             while True:

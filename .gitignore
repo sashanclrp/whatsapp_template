@@ -1,0 +1,23 @@
+# Ignore compiled Python files
+*.pyc
+__pycache__/
+
+# Ignore environment variables and example files
+.env
+
+# Logs
+*.log
+
+# Ignore VSCode settings
+.vscode/
+
+# Ignore MacOS system files
+.DS_Store
+
+# Bytecode cache
+__pycache__/
+
+# Ignore local files
+*.swp
+*.swo
+*.tmp
