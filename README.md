@@ -209,3 +209,19 @@ Your webhook URL will look like:
 ```
 https://<ngrok-url>/webhook
 ```
+
+### Step 4: How to properly stop the server
+
+```bash
+sudo lsof -i :5000
+```
+This will show you the process id of the server.
+
+```bash
+uvicorn   12345   user   22u  IPv4  1234567      0t0  TCP *:5000 (LISTEN)
+```
+Kill the server with:
+
+```bash
+kill -9 <process-id>
+```
