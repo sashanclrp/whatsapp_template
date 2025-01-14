@@ -29,7 +29,7 @@ class AirtableService:
                     "PASAPORTE": "Pasaporte"
                 }[data['id_type']],
                 "Fecha de Nacimiento": data['birth_date'],
-                "WhatsApp": int(to),  # Convert WhatsApp number to integer
+                "WhatsApp": to,
                 "Notas": data['more_about'],
                 "Tratamiento De Datos": "Autorizo"  # Set when user accepts data policy
             }
