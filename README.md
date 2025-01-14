@@ -225,3 +225,9 @@ Kill the server with:
 ```bash
 kill -9 <process-id>
 ```
+
+# Next Steps
+- [ ] Handle Media Webhooks
+- [ ] Handle Flow Webhooks & Messages
+- [ ] Handle Template messages
+- [ ] Handle Location Webhooks
