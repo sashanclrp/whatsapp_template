@@ -1,7 +1,7 @@
 from fastapi import HTTPException, Query
 from schemas.webhook_schema import WebhookMessage
-from services.message_handler import MessageHandler
-from services.status_handler import StatusHandler
+from services.message_handler.message_handler import MessageHandler
+from utils.log_handler import StatusHandler
 from config.env import WEBHOOK_VERIFY_TOKEN
 from utils.logger import logger
 
@@ -32,14 +32,15 @@ class WebhookController:
         Handle incoming webhook payloads and delegate to appropriate handler.
         :param payload: Parsed webhook payload (validated via WebhookMessage schema).
         """
-        logger.info("Controller - Received webhook payload.")
-        try:
-            # Extract common fields once
-            data = payload.model_dump()
-            entry = data.get("entry", [])[0]
-            changes = entry.get("changes", [])[0]
-            value = changes.get("value", {})
+        
+        data = payload.model_dump()
+        logger.debug("Controller - Received webhook payload.")
 
+        entry = data.get("entry", [])[0]
+        changes = entry.get("changes", [])[0]
+        value = changes.get("value", {})
+
+        try:
             # Route to appropriate handler based on webhook type
             if value.get("statuses"):
                 status_data = {

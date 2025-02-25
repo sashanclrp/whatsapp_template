@@ -3,16 +3,23 @@ import sys
 import os
 from datetime import datetime
 import warnings
-
+from config.env import LOG_LEVEL
 warnings.filterwarnings('ignore', message='NumExpr defaulting to.*')
 
 # Create logs directory if it doesn't exist
 logs_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'logs')
 os.makedirs(logs_dir, exist_ok=True)
 
+if LOG_LEVEL == "INFO":
+    level = logging.INFO
+elif LOG_LEVEL == "DEBUG":
+    level = logging.DEBUG
+else:
+    level = logging.DEBUG
+
 # Configure Logging
 logging.basicConfig(
-    level=logging.DEBUG,  # Set to DEBUG for development
+    level=level,  # Set to DEBUG for development, set to INFO for production
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(sys.stdout),

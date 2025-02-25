@@ -227,7 +227,7 @@ kill -9 <process-id>
 ```
 
 # Next Steps
-- [ ] Handle Media Webhooks
+- [x] Handle Media Webhooks
 - [ ] Handle Flow Webhooks & Messages
 - [ ] Handle Template messages
 - [ ] Handle Location Webhooks

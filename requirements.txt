@@ -8,3 +8,14 @@ watchdog
 sncl
 python-multipart
 typing-extensions
+agency-swarm
+nest_asyncio
+certifi
+pandas
+jupyter
+redis
+aiohttp
+pytz
+qrcode
+opencv-python
+numpy==1.26
